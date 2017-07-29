@@ -9,11 +9,12 @@
 </template>
 
 <script>
+  import env from '../../.env'
   export default {
     name: 'login',
     data () {
       return {
-        fitbitClientId: '229S7D'
+        fitbitClientId: env.fitbitClientId
       }
     },
     methods: {
