@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var callbackResponse = (document.URL).split('#')[1]
+      var responseParameters = (callbackResponse).split('&')
+      if (responseParameters.length > 0) {
+        var parameterMap = []
+        for (var i = 0; i < responseParameters.length; i++) {
+          parameterMap[responseParameters[i].split('=')[0]] = responseParameters[i].split('=')[1]
+        }
+        if (parameterMap.access_token !== undefined && parameterMap.access_token !== null) {
+          var fitbit = {
+            oauth: {
+              access_token: parameterMap.access_token,
+              expires_in: parameterMap.expires_in,
+              account_user_id: parameterMap.user_id
+            }
+          }
+          // Change this redirect link to wherever your dashboard is located.
+          window.location.href = 'http://localhost:8080/#/oauth-callback/' +
+            fitbit.oauth.access_token + '/' +
+            fitbit.oauth.expires_in + '/' +
+            fitbit.oauth.account_user_id
+        } else {
+          alert('Problem authenticating.')
+        }
+      } else {
+        alert('No auth params present. Problem authenticating.')
+      }
+    </script>
+  </head>
+  <body>Redirecting...</body>
+</html>
